@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>سبزپرهام - چت آنلاین</title>
+  <style>
+    body {
+      font-family: 'Tahoma', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom right, #e6f4ea, #ffffff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .chat-container {
+      width: 100%;
+      max-width: 400px;
+      background: white;
+      border: 2px solid #34a853;
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.1);
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 16px;
+    }
+    .header h1 {
+      color: #2e7d32;
+      margin: 0;
+    }
+    .header p {
+      font-size: 0.9em;
+      color: #666;
+    }
+    .messages {
+      height: 300px;
+      overflow-y: auto;
+      border: 1px solid #eee;
+      padding: 8px;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      background: #fafafa;
+    }
+    .msg {
+      margin: 6px 0;
+      max-width: 80%;
+      padding: 8px 12px;
+      border-radius: 12px;
+      font-size: 0.9em;
+    }
+    .user { background: #c8e6c9; margin-left: auto; text-align: right; }
+    .bot { background: #eeeeee; margin-right: auto; text-align: right; }
+    .input-area {
+      display: flex;
+      gap: 8px;
+    }
+    input[type="text"] {
+      flex: 1;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    button {
+      padding: 8px 12px;
+      background: #34a853;
+      border: none;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-container">
+    <div class="header">
+      <h1>سبزپرهام</h1>
+      <p>برای سالم زیستن فقط یک انتخاب فاصله است</p>
+    </div>
+    <div class="messages" id="chatBox">
+      <div class="msg bot">سلام! به سبزپرهام خوش آمدید. چه کمکی می‌تونم بکنم؟</div>
+    </div>
+    <div class="input-area">
+      <input type="text" id="userInput" placeholder="پیام خود را بنویسید...">
+      <button onclick="sendMessage()">ارسال</button>
+    </div>
+  </div>
+  <script>
+    function sendMessage() {
+      const input = document.getElementById('userInput');
+      const text = input.value.trim();
+      if (!text) return;
+      const chatBox = document.getElementById('chatBox');
+
+      // User message
+      const userMsg = document.createElement('div');
+      userMsg.className = 'msg user';
+      userMsg.innerText = text;
+      chatBox.appendChild(userMsg);
+
+      // Bot response
+      const botMsg = document.createElement('div');
+      botMsg.className = 'msg bot';
+      if (text.includes('قیمت')) {
+        botMsg.innerText = 'قیمت ساندویچ مرغ ۱۸۰، تن ماهی ۲۵۰، و کالباس ۲۵۰ هزار تومان هست.';
+      } else if (text.includes('باشگاه')) {
+        botMsg.innerText = 'با عضویت در باشگاه مشتریان، در قرعه‌کشی‌های ماهانه شرکت کنید!';
+      } else if (text.includes('محصول')) {
+        botMsg.innerText = 'ما ساندویچ سرد، تین‌تن با تن ماهی تحفه، و شردد چیکن تازه ارائه می‌دیم.';
+      } else {
+        botMsg.innerText = 'ممنون از پیامتون! به زودی پشتیبان ما پاسخ می‌دهد.';
+      }
+      chatBox.appendChild(botMsg);
+      chatBox.scrollTop = chatBox.scrollHeight;
+      input.value = '';
+    }
+  </script>
+</body>
+</html>
