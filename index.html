@@ -4,13 +4,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>سبزپرهام - چت آنلاین</title>
+  <title>سبزپرهام - چت هوشمند</title>
   <style>
     body {
       font-family: 'Tahoma', sans-serif;
       margin: 0;
       padding: 0;
-      background: linear-gradient(to bottom right, #e6f4ea, #ffffff);
+      background: linear-gradient(to bottom right, #f1f8f5, #ffffff);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -18,7 +18,7 @@
     }
     .chat-container {
       width: 100%;
-      max-width: 400px;
+      max-width: 450px;
       background: white;
       border: 2px solid #34a853;
       border-radius: 16px;
@@ -38,7 +38,7 @@
       color: #666;
     }
     .messages {
-      height: 300px;
+      height: 320px;
       overflow-y: auto;
       border: 1px solid #eee;
       padding: 8px;
@@ -82,10 +82,10 @@
       <p>برای سالم زیستن فقط یک انتخاب فاصله است</p>
     </div>
     <div class="messages" id="chatBox">
-      <div class="msg bot">سلام! به سبزپرهام خوش آمدید. چه کمکی می‌تونم بکنم؟</div>
+      <div class="msg bot">سلام! به سبزپرهام خوش آمدید. چطور می‌تونم کمکتون کنم؟</div>
     </div>
     <div class="input-area">
-      <input type="text" id="userInput" placeholder="پیام خود را بنویسید...">
+      <input type="text" id="userInput" placeholder="سوالی دارید؟">
       <button onclick="sendMessage()">ارسال</button>
     </div>
   </div>
@@ -96,24 +96,38 @@
       if (!text) return;
       const chatBox = document.getElementById('chatBox');
 
-      // User message
       const userMsg = document.createElement('div');
       userMsg.className = 'msg user';
       userMsg.innerText = text;
       chatBox.appendChild(userMsg);
 
-      // Bot response
       const botMsg = document.createElement('div');
       botMsg.className = 'msg bot';
-      if (text.includes('قیمت')) {
-        botMsg.innerText = 'قیمت ساندویچ مرغ ۱۸۰، تن ماهی ۲۵۰، و کالباس ۲۵۰ هزار تومان هست.';
-      } else if (text.includes('باشگاه')) {
-        botMsg.innerText = 'با عضویت در باشگاه مشتریان، در قرعه‌کشی‌های ماهانه شرکت کنید!';
-      } else if (text.includes('محصول')) {
-        botMsg.innerText = 'ما ساندویچ سرد، تین‌تن با تن ماهی تحفه، و شردد چیکن تازه ارائه می‌دیم.';
+
+      const lower = text.toLowerCase();
+
+      if (text.includes('قیمت') || text.includes('هزینه')) {
+        botMsg.innerText = 'قیمت‌ها: ساندویچ مرغ ۱۸۰، تن ماهی ۲۵۰، کالباس ۲۵۰ هزار تومان.';
+      } else if (text.includes('منو') || text.includes('محصولات') || text.includes('چی دارید')) {
+        botMsg.innerText = 'ما ساندویچ سرد، تین‌تن (تن ماهی تحفه)، و شردد چیکن تازه داریم.';
+      } else if (text.includes('تازه') || text.includes('ارگانیک') || text.includes('ترکیبات')) {
+        botMsg.innerText = 'تمام محصولات ما ارگانیک، تازه، و با نان نرم، سبزیجات و سس ویژه تهیه می‌شوند.';
+      } else if (text.includes('وکیوم') || text.includes('بسته بندی')) {
+        botMsg.innerText = 'تمام محصولات در بسته‌بندی وکیوم خلاء هستند که ماندگاری بالا و طعم تازه رو تضمین می‌کنه.';
+      } else if (text.includes('باشگاه') || text.includes('هدیه') || text.includes('قرعه')) {
+        botMsg.innerText = 'با عضویت در باشگاه مشتریان سبزپرهام، در قرعه‌کشی هدایای ویژه شرکت کنید.';
+      } else if (text.includes('سفارش') || text.includes('خرید') || text.includes('الو')) {
+        botMsg.innerText = 'برای سفارش سریع از طریق سامانه الوفود اقدام فرمایید.';
+      } else if (text.includes('پشتیبان') || text.includes('شماره') || text.includes('ارتباط')) {
+        botMsg.innerText = 'پشتیبان ما در مشهد، خیام ۶۱ شمالی، شماره تماس: ۰۹۱۵۲۲۲۱۴۰۴ در خدمت شماست.';
+      } else if (text.includes('سلام') || text.includes('خسته نباشی')) {
+        botMsg.innerText = 'سلام و ارادت. در خدمتتون هستیم 😊';
+      } else if (text.includes('مرسی') || text.includes('ممنون')) {
+        botMsg.innerText = 'باعث افتخاره که رضایت داشتید 🌿';
       } else {
-        botMsg.innerText = 'ممنون از پیامتون! به زودی پشتیبان ما پاسخ می‌دهد.';
+        botMsg.innerText = 'ممنون از پیامتون! لطفاً سوالتون رو واضح‌تر بپرسید یا با پشتیبانی تماس بگیرید.';
       }
+
       chatBox.appendChild(botMsg);
       chatBox.scrollTop = chatBox.scrollHeight;
       input.value = '';
